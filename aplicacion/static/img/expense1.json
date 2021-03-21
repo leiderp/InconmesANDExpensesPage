@@ -7,6 +7,10 @@
         {
             "desc": "caminata",
             "amount": 12000.0
+        },
+        {
+            "desc": "Viaje",
+            "amount": 120767.0
         }
     ]
 }
