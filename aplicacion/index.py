@@ -3,6 +3,7 @@ from aplicacion.forms import singupForm, loginForm,regIncomes,regExpenses,verFec
 from werkzeug.security import generate_password_hash, check_password_hash
 from flask_login import LoginManager, login_user,logout_user,login_required,current_user
 from flask_sqlalchemy import SQLAlchemy
+from sqlalchemy import func
 from aplicacion import config
 from flask_caching  import Cache
 from datetime import date
@@ -80,6 +81,7 @@ def dashboard():
         dateNow = form5.dateNow.data
         incomes = Incomes.query.filter_by(userId=current_user.id).filter_by(date=dateNow).all()
         expenses = Expenses.query.filter_by(userId = current_user.id).filter_by(date=dateNow).all()
+        totalIncomes = 0
         dataincomes={}
         dataincomes['income']=[]
         for incoms in incomes:
@@ -87,41 +89,49 @@ def dashboard():
                 'desc':incoms.description,
                 'amount':incoms.amount
             })
+            totalIncomes += incoms.amount 
         dataexpenses={}
         dataexpenses['expense']=[]
+        totalExpenses = 0
         for expens in expenses:
             dataexpenses['expense'].append({
                 'desc':expens.description,
                 'amount':expens.amount
-            })    
+            })
+            totalExpenses+=expens.amount
+                
         with open(app.root_path+"/static/img/income"+str(current_user.id)+".json",'w') as file:
             json.dump(dataincomes, file, indent=4)
         
         with open(app.root_path+"/static/img/expense"+str(current_user.id)+".json",'w') as file:
             json.dump(dataexpenses, file, indent=4)
-        return render_template('dashboard.html',incomes=incomes,expenses=expenses,user=current_user.name,activ=0,usid=current_user.id,form5=form5)
+        return render_template('dashboard.html',incomes=incomes,expenses=expenses,user=current_user.name,activ=0,usid=current_user.id,totalIncome=totalIncomes,totalExpense=totalExpenses,form5=form5)
     incomes = Incomes.query.filter_by(userId=current_user.id).filter_by(date=date.today()).all()#Incomes.query.all()
     expenses = Expenses.query.filter_by(userId = current_user.id).filter_by(date=date.today()).all()
     dataincomes={}
     dataincomes['income']=[]
+    totalIncomes = 0
     for incoms in incomes:
         dataincomes['income'].append({
             'desc':incoms.description,
             'amount':incoms.amount
         })
+        totalIncomes += incoms.amount
     dataexpenses={}
     dataexpenses['expense']=[]
+    totalExpenses = 0
     for expens in expenses:
         dataexpenses['expense'].append({
             'desc':expens.description,
             'amount':expens.amount
-        })    
+        })
+        totalExpenses+=expens.amount    
     with open(app.root_path+"/static/img/income"+str(current_user.id)+".json",'w') as file:
         json.dump(dataincomes, file, indent=4)
     
     with open(app.root_path+"/static/img/expense"+str(current_user.id)+".json",'w') as file:
         json.dump(dataexpenses, file, indent=4)
-    return render_template('dashboard.html',incomes=incomes,expenses=expenses,user=current_user.name,activ=0,usid=current_user.id,form5=form5)
+    return render_template('dashboard.html',incomes=incomes,expenses=expenses,user=current_user.name,activ=0,usid=current_user.id,totalIncome=totalIncomes,totalExpense=totalExpenses,form5=form5)
 
 
 @app.route('/dashboard/incomes',methods=["GET","POST"])
@@ -161,6 +171,10 @@ def dashboard_expenses(activ=3):
 def logout():
     logout_user()
     return redirect(url_for('index'))
+
+@app.errorhandler(404)
+def page_not_found(error):
+	return render_template("error.html",error="Page no found..."), 404
 #if __name__== "__main__":
 #    app.run(debug=True)
     
