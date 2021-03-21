@@ -1,0 +1,12 @@
+{
+    "expense": [
+        {
+            "desc": "comida",
+            "amount": 3000.0
+        },
+        {
+            "desc": "caminata",
+            "amount": 12000.0
+        }
+    ]
+}

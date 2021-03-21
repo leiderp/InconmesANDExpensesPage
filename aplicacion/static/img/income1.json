@@ -1,0 +1,12 @@
+{
+    "income": [
+        {
+            "desc": "Pedido",
+            "amount": 123555.0
+        },
+        {
+            "desc": "Ropa",
+            "amount": 1234545.0
+        }
+    ]
+}

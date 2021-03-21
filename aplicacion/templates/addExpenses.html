@@ -1,0 +1,33 @@
+{%extends "base.html"%} {%block content%}
+<div class="row justify-content-center">
+    <div class="col-md-6 login-form-1 align-self-center">
+        <h3>Add Expenses</h3>
+        <form action="{{url_for('dashboard_expenses')}}" method="POST" novalidate>
+            {{form4.csrf_token}}
+            <div class="form-group ">
+                {% if form4.dateEx.errors %} {{form4.dateEx(class="form-control is-invalid", placeholder="Day")}} {%for error in form4.dateEx.errors %}
+                <span class="help-block text-danger">{{error}}</span> {% endfor%} {%else%} {{form4.dateEx(class="form-control", placeholder="Day")}} {% endif %}
+                <!--<input type="text" class="form-control" placeholder="Email" value="" />-->
+            </div>
+            </br>
+            <div class="form-group">
+                {%if form4.descripEx.errors %} {{form4.descripEx(class="form-control is-invalid", placeholder="Description")}} {%for error in form4.descripEx.errors %}
+                <span class="help-block text-danger">{{error}}</span> {% endfor%}{%else%} {{form4.descripEx(class="form-control", placeholder="Description")}} {%endif%}
+                <!--<input type="password" class="form-control" placeholder="Password" value="" />-->
+            </div>
+            </br>
+            <div class="form-group">
+                {%if form4.amountEx.errors %} {{form4.amountEx(class="form-control is-invalid", placeholder="Amount")}} {%for error in form4.amountEx.errors %}
+                <span class="help-block text-danger">{{error}}</span> {% endfor%}{%else%} {{form4.amountEx(class="form-control", placeholder="Amount")}} {%endif%}
+                <!--<input type="password" class="form-control" placeholder="Password" value="" />-->
+            </div>
+            </br>
+            <div class="form-group">
+                {{form4.submitRgEx(class="btnSubmit")}}
+                <!--<input type="submit" class="btnSubmit" value="Login" />-->
+            </div>
+            </br>
+        </form>
+    </div>
+</div>
+{%endblock%}

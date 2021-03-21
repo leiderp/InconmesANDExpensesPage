@@ -1,0 +1,131 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta http-equiv="Expires" content="0">
+    <meta http-equiv="Last-Modified" content="0">
+    <meta http-equiv="Cache-Control" content="no-cache, mustrevalidate">
+    <meta http-equiv="Pragma" content="no-cache">
+    <title>Prueba1</title>
+
+    <link rel="canonical" href="https://getbootstrap.com/docs/5.0/examples/dashboard/">
+    <link href="{{url_for('static',filename='css/bootstrap.min.css')}}" rel="stylesheet">
+    <link rel="stylesheet" href="{{url_for('static',filename='css/style.css')}}">
+    <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+
+    <style>
+        .bd-placeholder-img {
+            font-size: 1.125rem;
+            text-anchor: middle;
+            -webkit-user-select: none;
+            -moz-user-select: none;
+            user-select: none;
+        }
+        
+        @media (min-width: 768px) {
+            .bd-placeholder-img-lg {
+                font-size: 3.5rem;
+            }
+        }
+    </style>
+    <link href="{{url_for('static',filename='css/dashboard.css')}}" rel="stylesheet">
+</head>
+
+<body>
+
+    <header class="navbar navbar-dark sticky-top bg-dark flex-md-nowrap p-0 shadow">
+        <a class="navbar-brand col-md-3 col-lg-2 me-0 px-3" href="#">Prueba #1</a>
+        <button class="navbar-toggler position-absolute d-md-none collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#sidebarMenu" aria-controls="sidebarMenu" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+        <div class="form-control form-control-dark bg-dark d-flex justify-content-md-end w-100 ">
+            <p class="tm-text-shadow">
+                User: {{user}}
+            </p>
+        </div>
+
+        <ul class="navbar-nav px-3">
+            <li class="nav-item text-nowrap">
+                <a class="nav-link" href="{{url_for('logout')}}">Sign out</a>
+            </li>
+        </ul>
+    </header>
+    <input type="hidden" id="iduser" name="iduser" value="{{usid}}">
+    <div class="container-fluid">
+        <div class="row">
+            <nav id="sidebarMenu" class="col-md-3 col-lg-2 d-md-block bg-light sidebar collapse">
+                <div class="position-sticky pt-3">
+                    <ul class="nav flex-column">
+                        <li class="nav-item">
+                            {%if activ == 0%}
+                            <a class="nav-link active" aria-current="page" href="{{url_for('dashboard')}}">
+                                <span data-feather="home"></span> Dashboard
+                            </a>
+                            {%else%}
+                            <a class="nav-link" aria-current="page" href="{{url_for('dashboard')}}">
+                                <span data-feather="home"></span> Dashboard
+                            </a>
+                            {%endif%}
+                        </li>
+                        <li class="nav-item">
+                            {%if activ==1%}
+                            <a class="nav-link active" href="{{url_for('dashboard_incomes')}}">
+                                <span data-feather="file-text"></span> Add Income
+                            </a>
+                            {%else%}
+                            <a class="nav-link" href="{{url_for('dashboard_incomes')}}">
+                                <span data-feather="file-text"></span> Add Income
+                            </a>
+                            {%endif%}
+                        </li>
+                        <li class="nav-item">
+                            {%if activ==2%}
+                            <a class="nav-link active" href="{{url_for('dashboard_expenses')}}">
+                                <span data-feather="file-text"></span> Add Expense
+                            </a>
+                            {%else%}
+                            <a class="nav-link" href="{{url_for('dashboard_expenses')}}">
+                                <span data-feather="file-text"></span> Add Expense
+                            </a>
+                            {%endif%}
+                        </li>
+                    </ul>
+                </div>
+            </nav>
+
+            <main class="col-md-9 ms-sm-auto col-lg-10 px-md-4">
+                <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
+                    <h1 class="h2">Dashboard</h1>
+                    {%if form5%}
+                    <form action="{{url_for('dashboard')}}" method="POST">
+                        {{form5.csrf_token}}
+                        <div class="btn-toolbar mb-2 mb-md-0">
+                            <div class="btn-group me-2">
+                                {{form5.seeButton(class="btn btn-sm btn-outline-secondary")}}
+                                <!--<button type="button" class="btn btn-sm btn-outline-secondary">See</button>-->
+                            </div>
+                            {{form5.dateNow(class="btn btn-sm btn-outline-secondary dropdown-toggle")}}
+                            <!--<button type="button" class="btn btn-sm btn-outline-secondary dropdown-toggle">
+                            </button>-->
+                        </div>
+                    </form>
+                    {%endif%}
+                </div>
+                {%block content%}{%endblock%}
+            </main>
+        </div>
+    </div>
+
+
+    <script src="{{url_for('static',filename='js/bootstrap.bundle.min.js')}}"></script>
+
+    <script src="https://cdn.jsdelivr.net/npm/feather-icons@4.28.0/dist/feather.min.js" integrity="sha384-uO3SXW5IuS1ZpFPKugNNWqTZRRglnUJK6UAZ/gxOX80nxEkN9NcGZTftn6RzhGWE" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@2.9.4/dist/Chart.min.js" integrity="sha384-zNy6FEbO50N+Cg5wap8IKA4M/ZnLJgzc6w2NqACZaK0u0FXfOWRRJOnQtpZun8ha" crossorigin="anonymous"></script>
+    <script src="{{url_for('static',filename='js/dashboard.js')}}"></script>
+    <script src="{{url_for('static',filename='js/dash.js')}}"></script>
+</body>
+
+</html>

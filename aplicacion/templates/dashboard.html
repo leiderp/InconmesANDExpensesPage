@@ -1,0 +1,69 @@
+{%extends "base.html"%} {%block content%}
+<div class="row">
+    <div class="col-sm-12 col-md-6 col-lg-12 col-xl-6 mb-4">
+        <div class="media tm-bg-transparent-black tm-border-white">
+            <h2>Incomes</h2>
+            <div class="table-responsive">
+                <table class="table table-info table-striped table-hover table-sm">
+                    <thead>
+                        <tr>
+                            <th>#</th>
+                            <th>DAY</th>
+                            <th>DESCRIPTION</th>
+                            <th>AMOUNT</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {%for income in incomes%}
+                        <tr>
+                            <td>{{loop.index}}</td>
+                            <td>{{income.date}}</td>
+                            <td>{{income.description}}</td>
+                            <td>{{income.amount}}</td>
+                        </tr>
+                        {%endfor%}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+    <div class="col-sm-12 col-md-6 col-lg-12 col-xl-6 mb-4">
+        <div class="media tm-bg-transparent-black tm-border-white">
+            <h2>Expenses</h2>
+            <div class="table-responsive">
+                <table class="table table-danger table-striped table-hover table-sm">
+                    <thead>
+                        <tr>
+                            <th>#</th>
+                            <th>DAY</th>
+                            <th>DESCRIPTION</th>
+                            <th>AMOUNT</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {%for expense in expenses%}
+                        <tr>
+                            <td>{{loop.index}}</td>
+                            <td>{{expense.date}}</td>
+                            <td>{{expense.description}}</td>
+                            <td>{{expense.amount}}</td>
+                        </tr>
+                        {%endfor%}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+    <div class="col-sm-12 col-md-6 col-lg-12 col-xl-6 mb-4">
+        <div class="media tm-bg-transparent-black tm-border-white">
+            <canvas id="incomesChart" width="600" height="400"></canvas>
+        </div>
+    </div>
+    <div class="col-sm-12 col-md-6 col-lg-12 col-xl-6 mb-4">
+        <div class="media tm-bg-transparent-black tm-border-white">
+            <canvas id="expensesChart" width="600" height="400"></canvas>
+        </div>
+    </div>
+</div>
+
+<canvas class="my-4 w-100" id="myChart" width="900" height="380"></canvas> {%endblock%}

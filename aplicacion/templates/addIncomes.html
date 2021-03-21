@@ -1,0 +1,33 @@
+{%extends "base.html"%} {%block content%}
+<div class="row justify-content-center">
+    <div class="col-md-6 login-form-1 align-self-center">
+        <h3>Add Incomes</h3>
+        <form action="{{url_for('dashboard_incomes')}}" method="POST" novalidate>
+            {{form3.csrf_token}}
+            <div class="form-group ">
+                {% if form3.dateIncome.errors %} {{form3.dateIncome(class="form-control is-invalid", placeholder="Day")}} {%for error in form3.dateIncome.errors %}
+                <span class="help-block text-danger">{{error}}</span> {% endfor%} {%else%} {{form3.dateIncome(class="form-control", placeholder="Day")}} {% endif %}
+                <!--<input type="text" class="form-control" placeholder="Email" value="" />-->
+            </div>
+            </br>
+            <div class="form-group">
+                {%if form3.descrip.errors %} {{form3.descrip(class="form-control is-invalid", placeholder="Description")}} {%for error in form3.descrip.errors %}
+                <span class="help-block text-danger">{{error}}</span> {% endfor%}{%else%} {{form3.descrip(class="form-control", placeholder="Description")}} {%endif%}
+                <!--<input type="password" class="form-control" placeholder="Password" value="" />-->
+            </div>
+            </br>
+            <div class="form-group">
+                {%if form3.amount.errors %} {{form3.amount(class="form-control is-invalid", placeholder="Amount")}} {%for error in form3.amount.errors %}
+                <span class="help-block text-danger">{{error}}</span> {% endfor%}{%else%} {{form3.amount(class="form-control", placeholder="Amount")}} {%endif%}
+                <!--<input type="password" class="form-control" placeholder="Password" value="" />-->
+            </div>
+            </br>
+            <div class="form-group">
+                {{form3.submitRg(class="btnSubmit")}}
+                <!--<input type="submit" class="btnSubmit" value="Login" />-->
+            </div>
+            </br>
+        </form>
+    </div>
+</div>
+{%endblock%}

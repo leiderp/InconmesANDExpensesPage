@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Prueba1</title>
+    <link rel="stylesheet" href="{{url_for('static',filename='css/style.css')}}">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+    <link href="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+    <script src="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+</head>
+
+<body>
+    <div class="container login-container">
+        <div class="row">
+            <div class="col-md-6 login-form-1">
+                <h3>Login </h3>
+
+                <form action="{{url_for('index')}}" method="POST" novalidate>
+                    {{form1.csrf_token}}
+                    <div class="form-group ">
+                        {% if form1.usernameLg.errors %} {{form1.usernameLg(class="form-control is-invalid", placeholder="Email")}} {%for error in form1.usernameLg.errors %}
+                        <span class="help-block text-danger">{{error}}</span> {% endfor%} {%else%} {{form1.usernameLg(class="form-control", placeholder="Email")}} {% endif %}
+                        <!--<input type="text" class="form-control" placeholder="Email" value="" />-->
+                    </div>
+                    <div class="form-group">
+                        {%if form1.passwordLg.errors %} {{form1.passwordLg(class="form-control is-invalid", placeholder="Password")}} {%for error in form1.passwordLg.errors %}
+                        <span class="help-block text-danger">{{error}}</span> {% endfor%}{%else%} {{form1.passwordLg(class="form-control", placeholder="Password")}} {%endif%}
+                        <!--<input type="password" class="form-control" placeholder="Password" value="" />-->
+                    </div>
+                    <div class="form-group">
+                        {{form1.submitLg(class="btnSubmit")}}
+                        <!--<input type="submit" class="btnSubmit" value="Login" />-->
+                    </div>
+                    <div class="form-group">
+                        <a href="#" class="ForgetPwd">Forget Password?</a>
+                        <a href="#" class="ForgetPwd">SingUp</a>
+                    </div>
+                </form>
+            </div>
+            <div class="col-md-6 login-form-2">
+                <h3>SingUp</h3>
+                {#{% for field, errors in form2.errors.items() %}
+                <div class="alert alert-danger">
+                    {{ form2[field].label }}: {{ ', '.join(errors) }}
+                </div>
+                {% endfor %}#}
+                <form action="{{url_for('index')}}" method="POST" novalidate>
+                    {{form2.csrf_token}}
+                    <div class="form-group">
+                        {%if form2.name.errors%} {{form2.name(class="form-control is-invalid",placeholder="Name")}} {%for error in form2.name.errors %}
+                        <span class="help-block text-danger">{{error}}</span> {% endfor%} {%else%} {{form2.name(class="form-control",placeholder="Name")}} {%endif%}
+
+                        <!--<input type="text" class="form-control" placeholder="Name" value="" />-->
+                    </div>
+                    <div class="form-group">
+                        {%if form2.username.errors%} {{form2.username(class="form-control is-invalid",placeholder="Email")}} {%for error in form2.username.errors %}
+                        <span class="help-block text-danger">{{error}}</span> {% endfor%} {%else%} {{form2.username(class="form-control",placeholder="Email")}} {%endif%}
+                        <!--<input type="text" class="form-control" placeholder="Email" value="" />-->
+                    </div>
+                    <div class="form-group">
+                        {%if form2.password.errors%} {{form2.password(class="form-control is-invalid",placeholder="Password")}} {%for error in form2.password.errors %}
+                        <span class="help-block text-danger">{{error}}</span> {% endfor%} {%else%} {{form2.password(class="form-control",placeholder="Password")}} {%endif%}
+                        <!--<input type="password" class="form-control" placeholder="Password" value="" />-->
+                    </div>
+                    <div class="form-group">
+                        {{form2.submit(class="btnSubmit")}}
+                        <!--<input type="submit" class="btnSubmit" value="Sing Up" />-->
+                    </div>
+                    <div class="form-group">
+
+                        <!--<a href="#" class="ForgetPwd" value="Login">Forget Password?</a>-->
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+    <script src="{{url_for('static',filename='js/index.js')}}"></script>
+</body>
+
+</html>
